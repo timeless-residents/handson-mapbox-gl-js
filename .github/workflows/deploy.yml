@@ -27,14 +27,15 @@ jobs:
       - name: Build
         env:
           MAPBOX_ACCESS_TOKEN: ${{ secrets.MAPBOX_ACCESS_TOKEN || '' }}
-        run: npm run build
-        # Uncomment and modify if you need environment variables for the build
+        run: |
+          # .env.productionファイルを作成
+          echo "MAPBOX_ACCESS_TOKEN=$MAPBOX_ACCESS_TOKEN" > .env.production
+          npm ci
+          npm run build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: dist
-          # The branch the action should deploy to
           branch: gh-pages
-          # Clean up existing files in the destination branch
           clean: true
