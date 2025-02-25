@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+permissions:
+  contents: write # リポジトリコンテンツ（gh-pagesブランチ含む）への書き込み権限
+  pages: write # GitHub Pagesへの書き込み権限
 
 jobs:
   build-and-deploy:
