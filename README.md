@@ -71,18 +71,16 @@ GitHub Actionsを使用して、プロジェクトをGitHub Pagesに自動的に
 
 ### 環境変数の設定
 
-Mapbox APIキーなどの環境変数を使用する場合は、以下の手順で設定します：
+このプロジェクトはMapbox GL JSを使用しており、Mapboxアクセストークンが必要です。GitHub Actionsでのデプロイ時にこのトークンを使用するには、以下の手順で設定します：
 
 1. リポジトリの「Settings」タブを開きます
 2. 左側のメニューから「Secrets and variables」→「Actions」を選択します
 3. 「New repository secret」ボタンをクリックします
-4. 名前（例：`MAPBOX_ACCESS_TOKEN`）と値を入力して保存します
-5. `.github/workflows/deploy.yml`ファイルの環境変数セクションのコメントを解除して使用します
+4. 名前を`MAPBOX_ACCESS_TOKEN`とし、値にMapboxアクセストークンを入力して保存します
 
-```yaml
-env:
-  MAPBOX_ACCESS_TOKEN: ${{ secrets.MAPBOX_ACCESS_TOKEN }}
-```
+ワークフローは自動的にこの環境変数を使用してビルドを行います。シークレットが設定されていない場合でもビルドは実行されますが、Mapbox機能は正常に動作しません。
+
+**注意**: 公開リポジトリの場合、`.env`ファイルに直接トークンを含めないでください。代わりに`.env.example`などのサンプルファイルを作成し、実際のトークンはGitHubシークレットとして設定してください。
 
 ### リポジトリメタデータの更新
 
