@@ -8,9 +8,12 @@
   - [インストール](#インストール)
   - [使い方](#使い方)
   - [プロジェクト構成](#プロジェクト構成)
-  - [GitHub Pagesへのデプロイ](#github-pagesへのデプロイ)
+  - [GitHub Actions ワークフロー](#github-actions-ワークフロー)
+    - [GitHub Pagesへのデプロイ](#github-pagesへのデプロイ)
     - [設定方法](#設定方法)
     - [環境変数の設定](#環境変数の設定)
+    - [リポジトリメタデータの更新](#リポジトリメタデータの更新)
+      - [使用方法](#使用方法)
   - [ライセンス](#ライセンス)
 
 ## インストール
@@ -50,9 +53,13 @@ handson-mapbox-gl-js/
 - `styles.css`：スタイルシートです。
 - `main.js`：JavaScriptのエントリーポイントです。
 
-## GitHub Pagesへのデプロイ
+## GitHub Actions ワークフロー
 
-このプロジェクトはGitHub Actionsを使用して、GitHub Pagesに自動的にデプロイすることができます。
+このプロジェクトは以下のGitHub Actionsワークフローを使用しています：
+
+### GitHub Pagesへのデプロイ
+
+GitHub Actionsを使用して、プロジェクトをGitHub Pagesに自動的にデプロイすることができます。
 
 ### 設定方法
 
@@ -76,6 +83,22 @@ Mapbox APIキーなどの環境変数を使用する場合は、以下の手順�
 env:
   MAPBOX_ACCESS_TOKEN: ${{ secrets.MAPBOX_ACCESS_TOKEN }}
 ```
+
+### リポジトリメタデータの更新
+
+英語でのリポジトリの説明とトピックを更新するためのワークフローも用意されています。
+
+#### 使用方法
+
+1. リポジトリの「Actions」タブを開きます
+2. 左側のワークフローリストから「Update Repository Metadata」を選択します
+3. 「Run workflow」ボタンをクリックします
+4. 必要に応じて説明文とトピックを入力します（デフォルト値が設定されています）
+5. 「Run workflow」ボタンをクリックして実行します
+
+このワークフローは以下の操作を行います：
+- リポジトリの説明を英語で設定します（デフォルト: "Hands-on project using Mapbox GL JS"）
+- リポジトリのトピックを設定します（デフォルト: mapbox-gl-js, javascript, webgl, maps, geospatial）
 
 ## ライセンス
 

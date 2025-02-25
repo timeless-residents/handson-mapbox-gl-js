@@ -1,0 +1,42 @@
+name: Update Repository Metadata
+
+on:
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      description:
+        description: 'Repository description'
+        required: false
+        default: 'Hands-on project using Mapbox GL JS'
+      topics:
+        description: 'Repository topics (comma-separated)'
+        required: false
+        default: 'mapbox-gl-js,javascript,webgl,maps,geospatial'
+
+jobs:
+  update-metadata:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup GitHub CLI
+        run: |
+          # GitHub CLI is pre-installed on GitHub-hosted runners
+          gh --version
+
+      - name: Update Repository Description and Topics
+        run: |
+          # Set description if provided
+          DESCRIPTION="${{ github.event.inputs.description || 'Hands-on project using Mapbox GL JS' }}"
+          echo "Setting repository description to: $DESCRIPTION"
+          gh repo edit "${{ github.repository }}" --description "$DESCRIPTION"
+          
+          # Set topics if provided
+          TOPICS="${{ github.event.inputs.topics || 'mapbox-gl-js,javascript,webgl,maps,geospatial' }}"
+          echo "Setting repository topics to: $TOPICS"
+          # Convert comma-separated list to space-separated for gh CLI
+          TOPICS_FORMATTED=$(echo $TOPICS | tr ',' ' ')
+          gh repo edit "${{ github.repository }}" --add-topic $TOPICS_FORMATTED
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
