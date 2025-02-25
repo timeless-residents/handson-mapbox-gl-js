@@ -33,7 +33,16 @@ module.exports = {
       template: "./src/index.html",
       filename: "index.html",
     }),
-    new Dotenv(), // .envファイルから環境変数を読み込み
+    new Dotenv({
+      systemvars: true, // システム環境変数も読み込む
+      safe: false, // エラーを表示しない
+      silent: true, // .envファイルがなくても警告を出さない
+    }),
+    new webpack.DefinePlugin({
+      "process.env.MAPBOX_ACCESS_TOKEN": JSON.stringify(
+        process.env.MAPBOX_ACCESS_TOKEN || ""
+      ),
+    }),
   ],
   devServer: {
     static: {

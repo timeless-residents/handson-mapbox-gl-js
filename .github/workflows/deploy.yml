@@ -37,6 +37,7 @@ jobs:
       - name: Create .env file
         run: |
           echo "MAPBOX_ACCESS_TOKEN=${{ secrets.MAPBOX_ACCESS_TOKEN }}" > .env
+          echo "Created .env file with token: ${#MAPBOX_ACCESS_TOKEN} characters"
 
       - name: Build
         run: npm run build
